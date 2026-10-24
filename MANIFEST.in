@@ -1,0 +1,8 @@
+include README.md
+include README.zh-CN.md
+include LICENSE
+include SECURITY.md
+include CONTRIBUTING.md
+recursive-include src/context_audit py.typed
+recursive-include tests *.py
+recursive-include examples *.jsonl

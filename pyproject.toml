@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "context-audit-tool"
+version = "0.1.0"
+description = "Measure how much of an LLM context window a finished conversation consumes."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "context-audit contributors" }]
+keywords = [
+    "llm",
+    "context-window",
+    "tokens",
+    "tokenizer",
+    "mcp",
+    "cli",
+    "observability",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+openai = ["tiktoken>=0.7"]
+hf = ["transformers>=4.40"]
+mcp = ["mcp>=1.0"]
+dev = ["pytest>=8", "ruff>=0.6"]
+release = ["build>=1.2", "twine>=5.0"]
+all = [
+    "tiktoken>=0.7",
+    "transformers>=4.40",
+    "mcp>=1.0",
+]
+
+[project.scripts]
+context-audit = "context_audit.cli:main"
+context-audit-mcp = "context_audit.mcp:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+context_audit = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["context_audit"]
